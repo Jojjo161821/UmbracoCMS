@@ -1,0 +1,29 @@
+﻿@using Onatrix_assignment.ViewModels
+@model QuestionFormViewModel
+
+@using (Html.BeginUmbracoForm("HandleQuestionForm", "Form", FormMethod.Post, new { novalidate = " novalidate", id = "QuestionForm" }))
+{
+    <div class="flex flex-col gap-5">
+        <div class="flex flex-col md:flex-row gap-8">
+            <div class="w-full">
+                <label asp-for="Name" class="sr-only"></label>
+                <input asp-for="Name" type="text" placeholder="@Html.DisplayNameFor(x => x.Name)" class="w-full border border-input placeholder-gray-1 text-[.812rem] p-[.9rem] italic focus:outline-none" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class ="w-full">
+                <label asp-for="Email" class="sr-only"></label>
+                <input asp-for="Email" type="text" placeholder="@Html.DisplayNameFor(x => x.Email)" class="w-full border border-input placeholder-gray-1 text-[.812rem] p-[.9rem] italic focus:outline-none" />
+                <span asp-validation-for="Email"></span>
+            </div>
+        </div>
+        <div>
+            <label asp-for="Question" class="sr-only"></label>
+            <textarea asp-for="Question" class="w-full border border-input placeholder-gray-1 text-[.812rem] p-[.9rem] italic resize-none h-40 focus:outline-none" placeholder="@Html.DisplayNameFor(x => x.Question)"></textarea>
+            <span asp-validation-for="Question"></span>
+        </div>
+
+        <div class="flex md:block">
+            <button class="bg-primary text-base font-bold text-secondary-2 py-[.9rem] px-10 cursor-pointer flex-1">Submit</button>
+        </div>
+    </div>
+}

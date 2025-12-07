@@ -1,0 +1,47 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Onatrix_assignment.ViewModels
+@{
+    var content = (ContentModels.ContactCallbackSection)Model.Content;
+    var rootContent = Umbraco.ContentAtRoot();
+    var settings = rootContent.OfType<SiteSettings>().FirstOrDefault();
+
+    var formViewModel = new CallbackFormViewModel
+    {
+        Options = settings?.CallbackRequestOption ?? []
+    };
+
+}
+
+<section class="relative pt-75 px-4">
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat max-h-[750px] -z-10" style="background-image: url(@content?.BgImage?.Url());"></div>
+
+    <div class="custom-container shadow-lg p-8 md:p-20 bg-light rounded z-10 mb-4 md:mb-0">
+
+        <div class="flex flex-col items-center gap-3 mb-8">
+            <p class="text-sm text-secondary font-bold">@content?.FormLabel</p>
+            <h2 class="leading-none pb-4 md:pb-6 md:px-55">@Html.Raw(content?.FormTitle)</h2>
+            <p class="text-xs md:text-sm text-body-text text-center md:px-55">@content?.FormDescription</p>
+        </div>
+
+        <partial name="Partials/Forms/_ContactCallbackForm" model="formViewModel" />
+
+        @if (TempData["FormSuccess"] != null)
+        {
+            <div class="flex justify-center mt-4">
+                <div class="rounded-xl border border-green-200 bg-green-50 px-6 py-3 text-green-800 shadow-sm text-center">
+                    <span>@TempData["FormSuccess"]</span>
+                </div>
+            </div>
+        }
+        else if (TempData["FormError"] != null)
+        {
+            <div class="flex justify-center mt-4">
+                <div class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-800 shadow-sm mx-6">
+                    <span>@TempData["FormError"]</span>
+                </div>
+            </div>           
+        }
+        
+    </div>
+</section>

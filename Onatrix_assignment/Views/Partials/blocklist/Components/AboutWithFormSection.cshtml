@@ -1,0 +1,52 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Onatrix_assignment.ViewModels
+@{
+    var content = (ContentModels.AboutWithFormSection)Model.Content;
+    var rootContent = Umbraco.ContentAtRoot();
+    var settings = rootContent.OfType<SiteSettings>().FirstOrDefault();
+
+    var formViewModel = new CallbackFormViewModel
+    {
+        Options = settings?.CallbackRequestOption ?? []
+    };
+}
+
+<section id="about" class="custom-container py-4 px-4 mt-6 grid lg:grid-cols-5 lg:place-items-center lg:mt-0">
+
+    <div class="mb-8 lg:col-span-3 lg:pr-5 lg:mb-0">
+
+        <p class="text-secondary text-sm font-bold">@content.Label</p>
+        <h2 class="text-center mb-8 md:text-left">@Html.Raw(content.Title)</h2>
+        <p class="text-body-text text-xl font-light mb-5 italic">@content.QuoteText</p>
+        <p class="text-body-text text-sm mb-5">@content.InfoText</p>
+        <img src="@content?.SignatureImage!.Url()" class="mb-2" alt="Signature">
+        <p class="text-body-text text-sm">@content?.SignatureText</p>
+
+    </div>
+
+    <div class="lg:col-span-2 lg:relative lg:-translate-y-23 ">
+
+        <div class="bg-primary py-8 px-6 z-20">
+            <h3 class="text-2xl md:text-3xl text-secondary-2 font-bold">@content?.FormTitle</h3>
+        </div>
+        <p class="text-body-text text-[.812rem] italic mt-8 px-6 ">@content?.FormText</p>
+
+        <partial name="Partials/Forms/_CallbackForm" model="formViewModel"/>
+
+        @if (TempData["FormSuccess"] != null)
+        {
+            <div class="my-4 flex items-center rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-800 shadow-sm mx-6">
+                <span>@TempData["FormSuccess"]</span>
+            </div>
+        }
+        else if (TempData["FormError"] != null)
+        {
+            <div class="my-4 flex items-center rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-800 shadow-sm mx-6">
+                <span>@TempData["FormError"]</span>
+            </div>
+        }
+
+    </div>
+
+</section>

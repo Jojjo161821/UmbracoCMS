@@ -1,0 +1,52 @@
+﻿@using Onatrix_assignment.ViewModels
+@model CallbackFormViewModel
+
+@using (Html.BeginUmbracoForm("HandleCallbackForm", "Form", FormMethod.Post, new { novalidate = " novalidate", id = "callbackForm" }))
+{
+    <div class="w-full xl:min-w-[475px] px-7 pb-9 pt-6 bg-light flex flex-col gap-5 shadow-lg">
+
+        <div>
+            <label asp-for="Name" class="sr-only"></label>
+            <input asp-for="Name" type="text" placeholder="@Html.DisplayNameFor(x => x.Name)" class="w-full border border-input placeholder-gray-1 text-[.812rem] p-[.9rem] italic focus:outline-none" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div>
+            <label asp-for="Email" class="sr-only"></label>
+            <input asp-for="Email" type="text" placeholder="@Html.DisplayNameFor(x => x.Email)" class="w-full border border-input placeholder-gray-1 text-[.812rem] p-[.9rem] italic focus:outline-none" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Phone" class="sr-only"></label>
+            <input asp-for="Phone" type="text" placeholder="@Html.DisplayNameFor(x => x.Phone)" class="w-full border border-input placeholder-gray-1 text-[.812rem] p-[.9rem] italic focus:outline-none" />
+            <span asp-validation-for="Phone"></span>
+        </div>
+
+        <div>
+            <label asp-for="SelectedOption" class="sr-only"></label>
+
+            <div class="relative ">
+                <select asp-for="SelectedOption" class="appearance-none w-full border border-input placeholder-gray-1 text-body-text text-[.812rem] p-[.9rem] focus:outline-none">
+                    <option value="" disabled hidden selected>Please select an option</option>
+      
+                    @foreach (var options in Model.Options)
+                    {
+                        <option value="@options">@options</option>
+                    }
+
+                </select>
+
+                <span class="pointer-events-none absolute right-3 inset-y-0 flex items-center">
+                    <i class="fa-solid fa-chevron-down text-[.6rem] text-primary"></i>
+                </span>
+            </div>
+
+            <span asp-validation-for="SelectedOption"></span>
+
+        </div>
+
+        <div>
+            <button type="submit" class="w-full bg-secondary-2 text-base font-bold text-primary py-[.9rem] cursor-pointer">Submit</button>
+        </div>
+
+    </div>
+}

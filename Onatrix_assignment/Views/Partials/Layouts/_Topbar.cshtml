@@ -1,0 +1,32 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var rootContent = Umbraco.ContentAtRoot();
+    var siteSettings = rootContent.OfType<SiteSettings>().FirstOrDefault();
+
+    var address = siteSettings?.Address ?? "No address added";
+
+}
+
+
+<div id="topbar" class="bg-primary">
+    <div class="custom-container flex items-center justify-between px-4">
+        <p class=" md:block text-white text-[.700rem] md:text-[.812rem]">@address</p>
+
+        <div class="flex items-center">
+            @if (siteSettings?.SocialLinks != null)
+            {
+                @foreach (var item in siteSettings.SocialLinks)
+                {
+                    if (item.Content is SocialMediaLink linkItem)
+                    {
+                        <a href="@linkItem.PlatformUrl" class="text-light p-4 border-l border-border last:border-r">
+                            <img src="@linkItem?.PlatformIcon!.Url()" alt="@linkItem?.PlatformName" />
+                        </a>
+                    }
+                }
+            }
+                      
+        </div>
+    </div>
+</div>

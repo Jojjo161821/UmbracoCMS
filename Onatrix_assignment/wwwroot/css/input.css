@@ -1,0 +1,73 @@
+﻿@import "tailwindcss";
+
+@theme {
+    --color-primary: #4F5955;
+    --color-secondary: #D9C3A9;
+    --color-secondary-2: #F2EDDC;
+    --color-gray-light: #F7F7F7;
+    --color-gray: #B9B9B9;
+    --color-gray-1: #9C9EA6;
+    --color-gray-2: #999999;
+    --color-gray-dark: #535656;
+    --color-light: #FFFFFF;
+    --color-dark: #0E0E0E;
+    --color-black: #2D303A;
+    --color-text-primary: var(--color-primary);
+    --color-text-secondary-1: var(--color-secondary-1);
+    --color-text-secondary-3: var(--color-secondary-3);
+    --color-body-text: var(--color-gray-dark);
+    --color-hover-primary: #545f5a;
+    --color-active-primary: #48504d;
+    --color-hover-secondary: #ddd8c5;
+    --color-active-secondary: #e4dfcd;
+    --color-border: #676e6c;
+    --color-border-100: #EBEBEB;
+    --color-border-200: #EAEAEA;
+    --color-input: #EBEBEB;
+    --font-poppins: "poppins", sans-serif;
+
+    --text-rte-sm: .875rem;
+    --text-rte-md: 1.25rem;
+    --text-rte-lg: 2.5rem;
+
+}
+
+body {
+    @apply font-poppins;
+}
+
+.custom-container {
+    @apply max-w-[1170px] mx-auto relative;
+}
+
+.custom-shadow {
+    box-shadow: 0 10px 25px rgba(75, 75, 75, 0.1);
+}
+
+.current a {
+    @apply text-secondary;
+}
+
+.rte p {
+    @apply mb-3;
+}
+
+.rte img {
+    @apply w-full h-auto object-cover;
+}
+
+.rte-ul {
+    @apply list-disc pl-5 mt-3 marker:text-secondary;
+}
+
+.rte-ul li {
+    @apply mb-3;
+}
+
+.input-validation-error {
+    @apply border-red-800 focus:ring-1 focus:ring-red-700;
+}
+
+.field-validation-error {
+    @apply mt-1 block text-sm text-red-700;
+}

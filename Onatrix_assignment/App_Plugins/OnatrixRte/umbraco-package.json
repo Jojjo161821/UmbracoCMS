@@ -1,0 +1,106 @@
+{
+  "name": "Onatrix Rte",
+  "alias": "Onatrix.Rte",
+  "extensions": [
+    {
+      "type": "tiptapToolbarExtension",
+      "kind": "styleMenu",
+      "alias": "Onatrix.Tiptap.StyleMenu",
+      "name": "Onatrix Tiptap Style Menu",
+      "meta": {
+        "alias": "onatrixStyleMenu",
+        "icon": "icon-palette",
+        "label": "Onatrix styles"
+      },
+      "items": [
+        {
+          "label": "Paragraphs",
+          "items": [
+            {
+              "label": "S - 14",
+              "items": [
+                {
+                  "label": "Normal",
+                  "data": {
+                    "tag": "p",
+                    "class": "text-rte-sm font-normal"
+                  },
+                  "appearance": {}
+                }
+              ]
+            },
+            {
+              "label": "M - 20",
+              "items": [
+                {
+                  "label": "Bold",
+                  "data": {
+                    "tag": "p",
+                    "class": "text-rte-md font-bold"
+                  },
+                  "appearance": {}
+                }
+              ]
+            },
+            {
+              "label": "L - 40",
+              "items": [
+                {
+                  "label": "Bold",
+                  "data": {
+                    "tag": "p",
+                    "class": "text-rte-md md:text-rte-lg font-bold"
+                  },
+                  "appearance": {}
+                }
+              ]
+            }
+          ]
+        },
+            {
+              "label": "Bullet list",
+              "data": {
+                "tag": "ul",
+                "class": "rte-ul"
+              }
+            }
+          ]
+        },
+    {
+      "type": "tiptapToolbarExtension",
+      "kind": "styleMenu",
+      "alias": "Onatrix.Tiptap.BrandColors",
+      "name": "Onatrix Brand Colors",
+      "meta": {
+        "alias": "OnatrixBrandColors",
+        "label": "Onatrix Colors"
+      },
+      "items": [
+        {
+          "label": "Primary",
+          "data": {
+            "tag": "span",
+            "class": "text-primary"
+          },
+          "appearance": { "style": "background-color:#4F5955; color:#fff; padding:5px;" }
+        },
+        {
+          "label": "Secondary",
+          "data": {
+            "tag": "span",
+            "class": "text-secondary"
+          },
+          "appearance": { "style": "background-color:#D9C3A9; color:#fff; padding:5px;" }
+        },
+        {
+          "label": "Body text",
+          "data": {
+            "tag": "span",
+            "class": "text-body-text"
+          },
+          "appearance": { "style": "background-color:#535656; color:#fff; padding:5px;" }
+        }
+      ]
+    }
+  ]
+}

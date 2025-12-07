@@ -1,0 +1,27 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var content = (ContentModels.FounderSection)Model.Content;
+}
+
+<section class="custom-container md:grid md:grid-cols-3 md:gap-10 pt-24 mb-30 px-4">
+
+    <div class="mb-4 md:mb-0 md:col-span-1 justify-self-center">
+
+        @if (content.FounderImage != null)
+        {
+            <img class="h-full object-cover" src="@content.FounderImage.Url()" alt="">
+        }       
+        <p class="text-base text-primary mt-2 italic">@content.FounderName</p>
+    </div>
+
+    <div class="col-span-2">
+        <p class="text-body-text text-xl mb-8 font-light italic">@content.QuoteText</p>
+        <div class="rte mb-8">
+            @Html.Raw(content.InfoText)
+        </div>
+        <div class="rte">
+            @Html.Raw(content.BodyText)
+        </div>
+    </div>
+</section>

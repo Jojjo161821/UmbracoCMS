@@ -1,0 +1,59 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.PublishedCache
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Cms.Core.Services.Navigation
+
+@inject IVariationContextAccessor VariationContextAccessor
+@inject IPublishedContentCache PublishedContentCache
+@inject IDocumentNavigationQueryService DocumentNavigationQueryService
+@inject IPublishedValueFallback PublishedValueFallback
+@inject IPublishedUrlProvider PublishedUrlProvider
+
+@{
+    var rootContent = Umbraco.ContentAtRoot();
+    var siteSettings = rootContent.OfType<SiteSettings>().FirstOrDefault();
+    var logo = siteSettings?.SiteLogo;
+
+    var selection = Model.Root().Children().Where(x => x.IsVisible(PublishedValueFallback)).ToArray();
+}
+
+<header class="shadow-lg z-100">
+    <nav id="navbar" class="custom-container relative flex items-center px-4 py-4 sm:gap-20 lg:gap-70">
+
+        @if (logo != null)
+        {
+            <a href="/" class="flex-none">
+                <img src="@logo.Url()" alt="Onatrix logo">
+            </a>
+        }
+        else
+        {
+            <a href="/">
+                Onatrix
+            </a>
+        }
+
+        <button id="menu-btn" class="text-primary ml-auto text-2xl md:hidden focus:outline-none cursor-pointer">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        @if (selection?.Length > 0)
+        {
+            <ul id="menu" class="hidden absolute md:static top-full left-0 w-full bg-light md:bg-transparent flex flex-col md:flex-row items-center gap-6 shadow-lg md:shadow-none md:flex md:gap-16 z-50 pb-4 md:pb-0">
+                @foreach (var item in selection)
+                {
+                    <li class="@(item.IsAncestorOrSelf(Model) ? "current" : null)">
+                        <a class="font-bold text-primary hover:text-secondary" href="@item.Url(PublishedUrlProvider)">@item.Name</a>
+                    </li>
+                }
+
+                <li class="md:ml-auto">
+                    <a href="#" class="flex items-center">
+                        <i class="fa-solid fa-magnifying-glass text-primary"></i>
+                    </a>
+                </li>
+            </ul>
+        }
+    </nav>
+</header>

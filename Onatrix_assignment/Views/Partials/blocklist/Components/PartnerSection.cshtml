@@ -1,0 +1,31 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models.PublishedContent
+
+@{
+    var rootContent = Umbraco.ContentAtRoot();
+    var siteSettings = rootContent.OfType<SiteSettings>().FirstOrDefault();
+
+    var logos = siteSettings?.LogosList;
+}
+
+   
+
+<section id="logos" class="custom-container bg-light h-[145px] grid items-center px-4">
+    <div class="grid grid-cols-3 gap-4 items-center md:flex md:justify-between">
+        @if (siteSettings?.LogosList != null)
+        {
+            @foreach (var item in siteSettings.LogosList)
+            {
+                if (item.Content is PartnerLogo partner)
+                {
+                    <div>
+                        <img src="@partner?.Logo!.Url()" alt="@partner?.PartnerName" />
+                    </div>                 
+                }
+            }
+        }
+    </div>
+</section>
+
+

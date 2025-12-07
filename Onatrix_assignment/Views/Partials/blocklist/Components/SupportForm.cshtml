@@ -1,0 +1,15 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var content = (ContentModels.SupportForm)Model.Content;
+}
+
+<div class="bg-primary py-7 px-5 flex flex-col gap-4 relative mt-10">
+    <img class="absolute inset-y-25 inset-x-38" src="~/images/Mail.svg" alt="">
+    <h3 class="text-secondary-2 text-[1.375rem] font-semibold leading-none">@content.FormTitle</h3>
+    <p class="text-sm text-light pb-3">@content.FormInfoText</p>
+    <div class="flex relative">
+        <input class="bg-light placeholder-gray-1 text-[.812rem] p-[.9rem] rounded flex-1" type="text" placeholder="E-mail address">
+        <i class="fa-regular fa-envelope absolute right-3 top-1/2 -translate-y-1/2 text-primary text-[1.2rem] "></i>
+    </div>
+</div>
