@@ -2,35 +2,36 @@ name: Build and Deploy
 
 on:
   push:
-    branches: 
-      - main
+    branches: [ "main" ]
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v3
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 8.0.x
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 9.0.x   # Umbraco 16 kör på .NET 9
 
-      - name: Restore
-        run: dotnet restore
+    - name: Restore
+      run: dotnet restore Onatrix_assignment/Onatrix_assignment.csproj
 
-      - name: Build
-        run: dotnet build --configuration Release
+    - name: Build
+      run: dotnet build Onatrix_assignment/Onatrix_assignment.csproj -c Release --no-restore
 
-      - name: Publish
-        run: dotnet publish -c Release -o ./publish
+    - name: Publish
+      run: dotnet publish Onatrix_assignment/Onatrix_assignment.csproj -c Release -o publish --no-build
 
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: 'umbracocms-johanna-johansson'
-          slot-name: 'Production'
-          package: './publish'
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE  }}
+    - name: Zip published app
+      run: Compress-Archive -Path publish\* -DestinationPath publish.zip
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: "umbracocms-johanna-johansson"
+        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+        package: publish.zip
